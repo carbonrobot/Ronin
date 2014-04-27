@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="page-header">Ronin</h1>
+            <p>
+                Ronin is a dynamic roaming profile service running on Node.js and backed by Mongodb.
+                Ronin allows applications to save user profiles and settings in any format they choose for portability across all applications.
+            </p>
+
+            <h2>Uploading profiles</h2>
+            <p>Upload a profile by issuing a post request. In the following example, <code>12345</code> is the profile key.</p>
+            <pre>POST /12345 HTTP 1.1<br/>SERVER http://{{host}}</pre>
+
+            <h2>Retrieving profiles</h2>
+            <p>Get profile information by issuing a get request. In the following example, <code>12345</code> is the profile key.</p>
+            <pre>GET /12345 HTTP 1.1<br/>SERVER http://{{host}}</pre>
+
+            <h2>Profile administration</h2>
+            <p>To view profile information online, navigate to <a href="http://{{host}}/12345/view">http://{{host}}/12345/view</a> where <code>12345</code> is the profile key.</p>
+            <p>To view all profiles stored on the server, navigate to <a href="http://{{host}}/admin">http://{{host}}/admin</a>.</p>
+        </div>
+    </div>
+</div>
