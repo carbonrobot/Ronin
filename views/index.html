@@ -3,21 +3,110 @@
         <div class="col-sm-12">
             <h1 class="page-header">Ronin</h1>
             <p>
-                Ronin is a dynamic roaming profile service running on Node.js and backed by Mongodb.
-                Ronin allows applications to save user profiles and settings in any format they choose for portability across all applications.
+                Ronin is a dynamic roaming profile service that allows applications to save user profiles and settings in any format they choose for portability across applications.
+                Ronin delivers content with Node.js and uses Mongodb as a data store.
+            </p>
+            <p>
+                Ronin supports roaming profile settings in two different ways; global or application.
+                When an application requests a profile, it will always receive the global settings for a profile. Applications can then choose to
+                receive only the settings related to that application, or settings for all applications.
             </p>
 
-            <h2>Uploading profiles</h2>
-            <p>Upload a profile by issuing a post request. In the following example, <code>12345</code> is the profile key.</p>
-            <pre>POST /12345 HTTP 1.1<br/>SERVER http://{{host}}</pre>
+            <h3>Viewing profiles</h3>
+            <p>To view profile information in the browser, navigate to <a href="http://{{host}}/34R7GHU6/view">http://{{host}}/34R7GHU6/view</a> where <code>34R7GHU6</code> is the profile key.</p>
 
-            <h2>Retrieving profiles</h2>
-            <p>Get profile information by issuing a get request. In the following example, <code>12345</code> is the profile key.</p>
-            <pre>GET /12345 HTTP 1.1<br/>SERVER http://{{host}}</pre>
+            <h3>Creating profiles</h3>
+            <p>
+                Profiles are created automatically when issuing a POST request to store a setting. No profile will be saved unless a setting is stored.
+            </p>
 
-            <h2>Profile administration</h2>
-            <p>To view profile information online, navigate to <a href="http://{{host}}/12345/view">http://{{host}}/12345/view</a> where <code>12345</code> is the profile key.</p>
+            <h3>Retrieving profiles</h3>
+            <p>
+                Get complete profile information by issuing a GET request.
+                All global settings as well as all application specific settings will be retrieved with this request.
+            </p>
+            <pre>
+GET /34R7GHU6 HTTP 1.1
+SERVER http://{{host}}</pre>
+            <p>
+                To get only the settings related to a single application, pass the application key in the GET request as well. Each calling application
+                is responsible for defining and storing it's own application key. <i>Global settings will always be retrieved.</i>
+            </p>
+            <pre>
+GET /34R7GHU6/app/559TTY HTTP 1.1
+SERVER http://{{host}}</pre>
+
+            <h3>Global Settings</h3>
+            <p>
+                Any settings defined in the global bucket will be sent to all applications.
+                To create a global setting, issue a POST request containing the profile key and setting key.<br />
+                <i>If the profile does not exist, it will be created.</i>
+            </p>
+            <pre>
+POST /34R7GHU6/fullname HTTP 1.1
+SERVER http://{{host}}
+Content-Type: application/json<br />
+{&quot;value&quot;: &quot;Spencer Olson&quot;}</pre>
+            <p>To update multiple settings at once, use a json object</p>
+            <pre>
+POST /34R7GHU6 HTTP 1.1
+SERVER http://{{host}}
+Content-Type: application/json<br />
+{&quot;fullname&quot;: &quot;Spencer Olson&quot;, &quot;company&quot;: &quot;General Dynamics&quot;}</pre>
+            <p>Issue a GET request to the same path to retrieve the setting.</p>
+            <pre>
+GET /34R7GHU6/fullname HTTP 1.1
+SERVER http://{{host}}</pre>
+
+            <h3>Application Settings</h3>
+            <p>
+                Any settings defined in an application bucket can be retrieved separately.
+                To create an application setting, issue a POST request containing the profile key and application key.<br />
+                <i>If the profile does not exist, it will be created.</i>
+            </p>
+            <pre>
+POST /34R7GHU6/app/559TTY/favcolor HTTP 1.1
+SERVER http://{{host}}
+Content-Type: application/json<br />
+{value: &quot;Blue&quot;}</pre>
+            <p>To update multiple settings at once, use a json object</p>
+            <pre>
+POST /34R7GHU6/app/559TTY HTTP 1.1
+SERVER http://{{host}}
+Content-Type: application/json<br />
+{&quot;favcolor&quot;: &quot;Blue&quot;, &quot;favfood&quot;: &quot;Tacos&quot;}</pre>
+            <p>Issue a GET request to the same path to retrieve the setting.</p>
+            <pre>
+GET /34R7GHU6/app/559TTY/favcolor HTTP 1.1
+SERVER http://{{host}}</pre>
+
+            <h3>Avatar</h3>
+            <p>
+                To create or update an avatar for a profile, issue a POST request where the content contains an image file.
+                The POST request should have an encoding type of <code>multipart/form-data</code>.
+            </p>
+            <pre>
+POST /34R7GHU6/avatar HTTP 1.1
+SERVER http://{{host}}
+Content-Type: multipart/form-data; boundary=BbC04y<br />
+--BbC04y
+Content-Disposition: file; filename="sillyface.png"
+Content-Type: image/png
+Content-Transfer-Encoding: binary</pre>
+            <p>To retrieve the avatar, embed the link into an HTML document or issue a GET request.</p>
+            <pre>&lt;img src&equiv;&quot;http://{{host}}/34R7GHU6/avatar&quot; /&gt;</pre>
+
+            <h3>Profile administration</h3>
             <p>To view all profiles stored on the server, navigate to <a href="http://{{host}}/admin">http://{{host}}/admin</a>.</p>
+
+            <h3>Usage</h3>
+            <p>Getting a profile from the server using jQuery</p>
+            <pre>
+$.get('http://{{host}}/34R7GHU6', function(data){
+    $('#nameField').val(data.name);
+});</pre>
+            <p>Updating application settings for a profile using jQuery</p>
+            <pre>$.post('http://{{host}}/34R7GHU6/app/JH8377', {'color': 'blue', 'magic': 'yes'});</pre>
         </div>
     </div>
 </div>
