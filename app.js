@@ -55,5 +55,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
-module.exports = app;
+// thundercats, GO!
+app.set('port', process.env.PORT || 4337);
+var server = app.listen(app.get('port'));
