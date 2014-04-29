@@ -45,8 +45,8 @@ SERVER http://{{host}}</pre>
             <pre>
 POST /34R7GHU6/fullname HTTP 1.1
 SERVER http://{{host}}
-Content-Type: application/json<br />
-{&quot;value&quot;: &quot;Spencer Olson&quot;}</pre>
+Content-Type: application/x-www-form-urlencoded<br />
+value=Spencer Olson</pre>
             <p>To update multiple settings at once, use a json object</p>
             <pre>
 POST /34R7GHU6 HTTP 1.1
@@ -67,7 +67,7 @@ SERVER http://{{host}}</pre>
             <pre>
 POST /34R7GHU6/app/559TTY/favcolor HTTP 1.1
 SERVER http://{{host}}
-Content-Type: application/json<br />
+Content-Type: application/x-www-form-urlencoded<br />
 {value: &quot;Blue&quot;}</pre>
             <p>To update multiple settings at once, use a json object</p>
             <pre>
