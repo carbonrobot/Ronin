@@ -2,7 +2,8 @@ var express = require('express'),
     mongo = require('mongodb'),
     router = express.Router();
 
-var server = 'mongodb://127.0.0.1:27017/ronindb';
+//var server = 'mongodb://127.0.0.1:27017/ronindb';
+var server = 'mongodb://ronin:yutYas4337@oceanic.mongohq.com:10033/ronindb';
 
 var getProfile = function (key, callback) {
     mongo.connect(server, function (err, db) {
