@@ -23,6 +23,22 @@
             <pre>
 GET /34R7GHU6 HTTP 1.1
 SERVER http://{{host}}</pre>
+            <pre>
+{
+    "key": "34R7GHU6",
+    "fullname": "Spencer Olson",
+    "apps": [
+        {
+            "key": "12345",
+            "fav-food": "tacos"
+        },
+        {
+            "key": "559TTY",
+            "last": "settings"
+        }
+    ]
+}
+</pre>
             <p>
                 To get only the settings related to a single application, pass the application key in the GET request as well. Each calling application
                 is responsible for defining and storing it's own application key. <i>Global settings will always be retrieved.</i>
@@ -30,6 +46,18 @@ SERVER http://{{host}}</pre>
             <pre>
 GET /34R7GHU6/app/559TTY HTTP 1.1
 SERVER http://{{host}}</pre>
+            <pre>
+{
+    "key": "34R7GHU6",
+    "fullname": "Spencer Olson",
+    "apps": [
+        {
+            "key": "559TTY",
+            "last": "settings"
+        }
+    ]
+}
+</pre>
 
             <h3>Creating profiles</h3>
             <p>
@@ -57,6 +85,7 @@ Content-Type: application/json<br />
             <pre>
 GET /34R7GHU6/fullname HTTP 1.1
 SERVER http://{{host}}</pre>
+            <pre>"Spencer Olson"</pre>
 
             <h3>Application Settings</h3>
             <p>
@@ -79,6 +108,7 @@ Content-Type: application/json<br />
             <pre>
 GET /34R7GHU6/app/559TTY/favcolor HTTP 1.1
 SERVER http://{{host}}</pre>
+            <pre>"Blue"</pre>
 
             <h3>Avatar</h3>
             <p>
